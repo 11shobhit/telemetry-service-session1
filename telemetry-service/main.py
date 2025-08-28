@@ -28,7 +28,7 @@ def generate_telemetry_data():
     """Generates simulated vehicle telemetry data."""
     data = {
         "timestamp": int(time.time()),
-        "vehicle_id": "DEMO_1", # Static for simplicity, could be dynamic
+        "vehicle_id": "DEMO_2", # Static for simplicity, could be dynamic
         "engine_temp_c": round(random.uniform(85.0, 105.0), 2),
         "speed_kmh": random.randint(0, 120),
         "fuel_level_percent": random.randint(10, 100),
