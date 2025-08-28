@@ -6,6 +6,7 @@ services:
     container_name: mqtt-broker-1
     ports:
       - "1883:1883" # Standard MQTT port
+      - "9001:9001"   # WebSockets
     volumes:
       - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
       - mosquitto_data:/mosquitto/data
@@ -27,5 +28,18 @@ services:
       mqtt-broker:
         condition: service_healthy
 
+  grafana:
+    image: grafana/grafana-oss:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana_data:/var/lib/grafana
+      # We'll use this for custom configs if needed, but for now we rely on anonymous login
+      - ./grafana.ini:/etc/grafana/grafana.ini
+    depends_on:
+      - mqtt-broker # Grafana needs the broker to exist to get data
+
 volumes:
   mosquitto_data:
+  grafana_data:

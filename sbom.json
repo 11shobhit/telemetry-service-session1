@@ -1,0 +1,11 @@
+{
+  "predicateType": "https://spdx.dev/Document",
+  "predicate": {
+    "name": "telemetry-service",
+    "version": "1.0.0",
+    "dependencies": [
+      "paho-mqtt@2.0.0",
+      "python@3.9"
+    ]
+  }
+}
