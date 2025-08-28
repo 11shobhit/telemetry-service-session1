@@ -33,4 +33,4 @@ jobs:
             --platform linux/amd64,linux/arm64 \
             -t ${{ secrets.DOCKER_USERNAME }}/telemetry-service-session1:latest \
             --push \
-            ./telemetry-service-session1
+            ./telemetry-service
