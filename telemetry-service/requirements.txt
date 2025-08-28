@@ -1,0 +1,3 @@
+#Pinning the version ensures your code won’t suddenly break if a
+# new Paho release changes APIs.
+paho-mqtt==2.0.0

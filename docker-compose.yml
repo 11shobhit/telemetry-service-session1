@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  mqtt-broker:
+    image: eclipse-mosquitto:2.0
+    container_name: mqtt-broker-1
+    ports:
+      - "1883:1883" # Standard MQTT port
+    volumes:
+      - ./mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - mosquitto_data:/mosquitto/data
+    healthcheck:
+      test: ["CMD", "sh", "-c", "nc -z localhost 1883"]
+      interval: 5s
+      timeout: 3s
+      retries: 5
+
+  telemetry-service:
+    build: ./telemetry-service
+    container_name: telemetry-publisher-session1
+    environment:
+      MQTT_BROKER_HOST: mqtt-broker # Refers to the service name within the Docker network
+      MQTT_BROKER_PORT: 1883
+      MQTT_TOPIC: vehicle/telemetry/data
+      PUBLISH_INTERVAL_SECONDS: 2 # Publish every 2 seconds for quicker observation
+    depends_on:
+      mqtt-broker:
+        condition: service_healthy
+
+volumes:
+  mosquitto_data:
